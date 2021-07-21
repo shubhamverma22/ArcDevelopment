@@ -1,17 +1,26 @@
 import { ThemeProvider } from "@material-ui/styles";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //components
-import Header from "./ui/Header";
 import theme from "./ui/Theme";
+import Header from "./ui/Header";
+import Footer from "./ui/Footer";
+import LandingPage from "./LandingPage";
 
 function App() {
+	const [value, setValue] = useState(0);
+	const [selectedIndex, setSelectedIndex] = useState(0);
 	return (
 		<ThemeProvider theme={theme}>
 			<Router>
-				<Header />
+				<Header
+					value={value}
+					setValue={setValue}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={setSelectedIndex}
+				/>
 				<Switch>
-					<Route exact path="/" component={() => <div>Home</div>}></Route>
+					<Route exact path="/" component={LandingPage}></Route>
 					<Route
 						exact
 						path="/services"
@@ -49,6 +58,12 @@ function App() {
 						component={() => <div>Estimate</div>}
 					></Route>
 				</Switch>
+				<Footer
+					value={value}
+					setValue={setValue}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={setSelectedIndex}
+				/>
 			</Router>
 		</ThemeProvider>
 	);
